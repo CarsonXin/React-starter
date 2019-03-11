@@ -14,18 +14,19 @@ class App extends Component {
       <div className="App">
         {/*<BrowserRouter basename='/starter'>*/}
         <Router history={history}>
+          {/*
+          * Router标签内不可有多个子标签
+           */}
           <div>
             <Navigator/>
             {
               routes.map((route, index) => {
                 return (
-                  <Route path={route.path}
-                         component={route.component}
+                  <Route path={route.path} component={route.component}
                          key={index}/>
                 );
               })
             }
-
           </div>
         </Router>
         {/*</BrowserRouter>*/}
