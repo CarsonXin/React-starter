@@ -1,0 +1,22 @@
+.flex {
+  display: flex;
+  flex-grow: initial;
+}
+
+.flex-row {
+  @extend .flex;
+  flex-direction: row;
+  flex-flow: row;
+}
+.nav-container {
+  text-align: left;
+  background-color: #282c34;
+  color: #fff;
+  padding: 10px;
+  .nav-item {
+    margin-right: 16px;
+    &:hover {
+
+    }
+  }
+}
