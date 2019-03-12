@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Button} from '@material-ui/core'
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -9,6 +9,11 @@ export default class Home extends React.Component {
   }
 
   render() {
-    return (<div>{this.state.msg}</div>);
+    return (<div className='container'>
+      <Button variant='contained' color='primary'>home</Button>
+      <Button variant='contained' color='primary'>home</Button>
+      <Button variant='contained' color='primary'>home</Button>
+      <Button variant='contained' color='primary'>home</Button>
+    </div>);
   }
 }
