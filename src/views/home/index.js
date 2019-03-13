@@ -1,19 +1,18 @@
 import React from 'react';
-import {Button} from '@material-ui/core'
+import {Button} from '@material-ui/core';
+
 export default class Home extends React.Component {
+  state = {
+    msg: 'message from home',
+  };
+
   constructor(props) {
     super(props);
-    this.state = {
-      msg: 'message from home',
-    };
   }
 
   render() {
     return (<div className='container'>
-      <Button variant='contained' color='primary'>home</Button>
-      <Button variant='contained' color='primary'>home</Button>
-      <Button variant='contained' color='primary'>home</Button>
-      <Button variant='contained' color='primary'>home</Button>
+      {this.state.msg}
     </div>);
   }
 }

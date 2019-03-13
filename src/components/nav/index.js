@@ -6,7 +6,7 @@ import {isDev} from '../../utils/properties';
 import {Link, withRouter} from 'react-router-dom';
 // 需要引入 withRouter方可手动跳转
 import {routes} from '../../utils/routers';
-// import './index.scss';
+import './index.scss';
 import {
   Drawer, IconButton,
   List,
@@ -17,10 +17,7 @@ import {
   Icon,
 } from '@material-ui/core';
 import {
-  Menu as MenuIcon,
-  Home as HomeIcon,
   ChevronLeft as ChevronLeftIcon,
-  ChevronRight as ChevronRightIcon,
 } from '@material-ui/icons';
 import {drawerWidth} from '../../utils/utils';
 
@@ -88,38 +85,36 @@ class Index extends React.Component {
     const {classes, theme} = this.props;
     const navItem = this.state.routes.map((item, index) => {
       return (
-          <Link to={`${item.path}`} className={classes.link} key={index}>
-            <ListItem>
-              <ListItemIcon>
-                {
-                  typeof item.icon === 'string' ?
-                      <Icon className={classNames(classes.icon, item.icon)}/> :
-                      <item.icon className={classNames(classes.icon)} />
-                }
-              </ListItemIcon>
-              <ListItemText primary={item.label}/>
-            </ListItem>
-          </Link>
+        <Link to={`${item.path}`} className={classes.link} key={index}>
+          <ListItem>
+            <ListItemIcon>
+              {
+                typeof item.icon === 'string' ?
+                  <Icon className={classNames(classes.icon, item.icon)}/> :
+                  <item.icon className={classNames(classes.icon)}/>
+              }
+            </ListItemIcon>
+            <ListItemText primary={item.label}/>
+          </ListItem>
+        </Link>
       );
     });
     return (<div>
       <Drawer
-          className={classNames(classes.drawer, {
+        className={classNames(classes.drawer, {
+          [classes.drawerOpen]: this.props.open,
+          [classes.drawerClose]: !this.props.open,
+        })}
+        classes={{
+          paper: classNames({
             [classes.drawerOpen]: this.props.open,
             [classes.drawerClose]: !this.props.open,
-          })}
-          classes={{
-            paper: classNames({
-              [classes.drawerOpen]: this.props.open,
-              [classes.drawerClose]: !this.props.open,
-            }),
-          }}
-          variant='permanent' open={this.props.open}>
+          }),
+        }}
+        variant='permanent' open={this.props.open}>
         <div className={classes.toolbar}>
           <IconButton onClick={this.toggleSideBar}>
-            {theme.direction === 'rtl' ?
-                <ChevronRightIcon/> :
-                <ChevronLeftIcon/>}
+            <ChevronLeftIcon/>
           </IconButton>
         </div>
         <Divider/>
