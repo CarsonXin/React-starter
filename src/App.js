@@ -10,12 +10,19 @@ import {
   IconButton,
   Typography,
 } from '@material-ui/core';
-import {Menu as MenuIcon} from '@material-ui/icons';
+import {
+  Menu as MenuIcon,
+  Notifications as NotificationIcon,
+  AccountCircle,
+} from '@material-ui/icons';
 import {Router, Route} from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import {routes} from './utils/routers';
 import './App.css';
 import {drawerWidth} from './utils/utils';
+import Badge from '@material-ui/core/Badge';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const history = createHistory();
 
@@ -56,11 +63,19 @@ const styles = theme => ({
   hide: {
     display: 'none',
   },
+  options: {
+    textAlign: 'right',
+    marginRight: 16,
+  },
+  grow: {
+    flexGrow: 1,
+  },
 });
 
 class App extends Component {
   state = {
     sideBarOpen: false,
+    showUserOptions: false,
   };
 
   constructor(props) {
@@ -74,8 +89,26 @@ class App extends Component {
     });
   };
 
+  openUserOptions = () => {
+    this.setState({
+      showUserOptions: !this.state.showUserOptions,
+    });
+  };
+
   render() {
     const {classes} = this.props;
+
+    const userOptions = (
+        <Menu
+            anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+            transformOrigin={{vertical: 'top', horizontal: 'right'}}
+            open={this.state.showUserOptions}
+        >
+          <MenuItem>Profile</MenuItem>
+          <MenuItem>My account</MenuItem>
+        </Menu>
+    );
+
     return (
         <Router history={history}>
           <div className={classes.root}>
@@ -95,16 +128,33 @@ class App extends Component {
                 >
                   <MenuIcon/>
                 </IconButton>
-                <Typography variant="h6" color="inherit" noWrap>
-                  Title
+                <Typography variant="h4" color="inherit" noWrap>
+                  School Bus System Admin
                 </Typography>
+                <div className={classes.grow}>
+                  <span aria-hidden> </span>
+                </div>
+                <div className={classes.options}>
+                  <IconButton color="inherit">
+                    <Badge badgeContent={17} color="secondary">
+                      <NotificationIcon/>
+                    </Badge>
+                  </IconButton>
+                  <IconButton aria-haspopup="true"
+                              onClick={this.openUserOptions}
+                              color="inherit">
+                    <AccountCircle/>
+                  </IconButton>
+                </div>
               </Toolbar>
+              {userOptions}
             </AppBar>
             {/*Router标签内不可有多个子标签*/}
             <Navigator open={this.state.sideBarOpen}
                        onToggle={this.toggleSidebar}/>
             <div className={classNames(classes.content, {})}>
-              <div className={classes.toolbar}/> {/*抵消被顶部占据的空间*/}
+              <div className={classes.toolbar}/>
+              {/*抵消被顶部占据的空间*/}
               {
                 routes.map((route, index) => {
                   return (
